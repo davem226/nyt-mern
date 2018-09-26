@@ -14,7 +14,8 @@ class Home extends Component {
         topic: "",
         startYear: "",
         endYear: "",
-        articles: []
+        articles: [],
+        saved: []
     };
 
     getArticles = (topic) => {
@@ -26,15 +27,13 @@ class Home extends Component {
 
     };
 
-    saveArticle = () => {
-
+    saveArticle = (id) => {
+        API.save(id)
+            .then(results => this.setState({
+                saved: this.state.saved.push(results.article)
+            }))
+            .catch(err => console.log(err));
     };
-
-    // removeArticle = (id) => {
-    //     API.remove(id)
-    //         .then(results => )
-    //         .catch(err => console.log(err));
-    // };
 
     handleInputChange = event => {
         const { name, value } = event.target;
@@ -46,13 +45,15 @@ class Home extends Component {
     handleFormSubmit = event => {
         event.preventDefault();
         if (this.state.topic && this.state.startYear) {
-            API.saveBook({
-                title: this.state.title,
-                author: this.state.author,
-                synopsis: this.state.synopsis
+            API.query({
+                topic: this.state.topic,
+                startYear: this.state.startYear,
+                endYear: this.state.endYear
             })
-                .then(res => this.loadBooks())
-                .catch(err => console.log(err));
+            .then(results => this.setState({
+                articles: results
+            }))
+            .catch(err => console.log(err));
         }
     };
 
@@ -98,9 +99,10 @@ class Home extends Component {
                         <Article
                             link={article.link}
                             title={article.title}
-                            abstract={article.abstract}
+                            preview={article.preview}
                         >
-                            <SaveBtn onClick={this.saveArticle} />
+                            {/* Only show saved button if not in this.state.saved */}
+                            <SaveBtn onClick={this.saveArticle(article.id)} />
                         </Article>
                     ))}
                 </Container>
@@ -108,3 +110,4 @@ class Home extends Component {
         );
     }
 }
+export default Home;
