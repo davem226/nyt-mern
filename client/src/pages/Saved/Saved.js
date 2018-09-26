@@ -47,9 +47,9 @@ class Saved extends Component {
                         )}
                     {this.state.article.map(article => (
                         <Article
-                            link={article.link}
-                            title={article.title}
-                            preview={article.preview}
+                            link={article.web_url}
+                            title={article.headline.main}
+                            preview={article.snippet}
                         >
                             <RemoveBtn onClick={this.removeArticle(article.id)} />
                         </Article>

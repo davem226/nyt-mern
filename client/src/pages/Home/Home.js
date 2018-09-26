@@ -18,19 +18,10 @@ class Home extends Component {
         saved: []
     };
 
-    getArticles = (topic) => {
-        API.query(topic)
-            .then(results => this.setState({
-                articles: results
-            }))
-            .catch(err => console.log(err));
-
-    };
-
-    saveArticle = (id) => {
-        API.save(id)
-            .then(results => this.setState({
-                saved: this.state.saved.push(results.article)
+    saveArticle = (article) => {
+        API.save(article)
+            .then(res => this.setState({
+                saved: this.state.saved.push(article)
             }))
             .catch(err => console.log(err));
     };
@@ -51,7 +42,7 @@ class Home extends Component {
                 endYear: this.state.endYear
             })
             .then(results => this.setState({
-                articles: results
+                articles: results.response.docs
             }))
             .catch(err => console.log(err));
         }
@@ -97,9 +88,9 @@ class Home extends Component {
                     ) : ("")}
                     {this.state.articles.map(article => (
                         <Article
-                            link={article.link}
-                            title={article.title}
-                            preview={article.preview}
+                            link={article.web_url}
+                            title={article.headline.main}
+                            preview={article.snippet}
                         >
                             {/* Only show saved button if not in this.state.saved */}
                             <SaveBtn onClick={this.saveArticle(article.id)} />
