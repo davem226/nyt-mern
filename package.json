@@ -1,0 +1,23 @@
+{
+  "name": "nyt-mern",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davem226/nyt-mern.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/davem226/nyt-mern/issues"
+  },
+  "homepage": "https://github.com/davem226/nyt-mern#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
