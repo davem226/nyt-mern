@@ -6,5 +6,4 @@ const SaveBtn = props => (
     Save
   </button>
 );
-
 export default SaveBtn;

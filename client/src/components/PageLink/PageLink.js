@@ -1,8 +1,9 @@
 import React from "react";
 import "./PageLink.css";
 
-export const PageLink = props => (
+const PageLink = props => (
     <a className="page-link">
-        ${props.page}
+        {props.page}
     </a>
 );
+export default PageLink;

@@ -1,7 +1,7 @@
 import React from "react";
 import "./Article.css";
 
-export const Article = props => (
+const Article = props => (
     <a href={`${props.link}`} className="card" style="width: 60%;">
         <div className="card-body">
             <h5 className="card-title">
@@ -12,3 +12,4 @@ export const Article = props => (
         {props.children}
     </a>
 );
+export default Article;

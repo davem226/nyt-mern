@@ -1,7 +1,7 @@
 import React from "react";
 import "./Heading.css";
 
-export const Heading = () => (
+const Heading = () => (
     <div className="page-header">
         <h1>
             NYT Article Scrubber
@@ -11,3 +11,4 @@ export const Heading = () => (
         </h1>
     </div>
 );
+export default Heading;

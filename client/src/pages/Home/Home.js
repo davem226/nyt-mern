@@ -51,7 +51,7 @@ class Home extends Component {
                 endYear: this.state.endYear
             })
             .then(results => this.setState({
-                articles: results.response.docs
+                articles: results.data.response.docs
             }))
             .catch(err => console.log(err));
         }
@@ -75,7 +75,7 @@ class Home extends Component {
                         placeholder="Topic"
                     />
                     <Input
-                        name="starYear"
+                        name="startYear"
                         value={this.state.startYear}
                         onChange={this.handleInputChange}
                         placeholder="Year Beginning"

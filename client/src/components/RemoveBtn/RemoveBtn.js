@@ -6,5 +6,4 @@ const RemoveBtn = props => (
     Remove
   </button>
 );
-
 export default RemoveBtn;
