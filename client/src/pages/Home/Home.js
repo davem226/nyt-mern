@@ -19,9 +19,18 @@ class Home extends Component {
     };
 
     saveArticle = (article) => {
-        API.save(article)
+        // Allow for saved articles to be determined in state
+        const articles = this.state.articles
+            .map(i => i.isSaved === true)
+            .filter(i => i === article);
+        const data = {
+            title: article.headline.main,
+            link: article.web_url,
+            synopsis: article.snippet
+        };
+        API.save(data)
             .then(res => this.setState({
-                saved: this.state.saved.push(article)
+                articles: articles
             }))
             .catch(err => console.log(err));
     };
@@ -33,7 +42,7 @@ class Home extends Component {
         });
     };
 
-    handleFormSubmit = event => {
+    getArticles = event => {
         event.preventDefault();
         if (this.state.topic && this.state.startYear) {
             API.query({
@@ -77,7 +86,7 @@ class Home extends Component {
                         onChange={this.handleInputChange}
                         placeholder="Year Ending"
                     />
-                    <SearchBtn onClick={this.handleFormSubmit}>
+                    <SearchBtn onClick={this.getArticles}>
                         Search
                     </SearchBtn>
                 </form>
@@ -92,8 +101,11 @@ class Home extends Component {
                             title={article.headline.main}
                             preview={article.snippet}
                         >
-                            {/* Only show saved button if not in this.state.saved */}
-                            <SaveBtn onClick={this.saveArticle(article.id)} />
+                            {article.isSaved ? (
+                                <div>✔</div>
+                            ) : (
+                                <SaveBtn onClick={this.saveArticle(article)} />
+                            )}
                         </Article>
                     ))}
                 </Container>

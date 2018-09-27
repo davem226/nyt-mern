@@ -22,9 +22,10 @@ class Saved extends Component {
     };
 
     removeArticle = (id) => {
+        const articles = this.state.articles.filter(article => article._id !== id);
         API.remove(id)
-            .then(results => this.setState({
-                articles: this.state.articles.remove(id)
+            .then(res => this.setState({
+                articles: articles
             }))
             .catch(err => console.log(err));
     };
@@ -47,11 +48,11 @@ class Saved extends Component {
                         )}
                     {this.state.article.map(article => (
                         <Article
-                            link={article.web_url}
-                            title={article.headline.main}
-                            preview={article.snippet}
+                            link={article.link}
+                            title={article.title}
+                            preview={article.synopsis}
                         >
-                            <RemoveBtn onClick={this.removeArticle(article.id)} />
+                            <RemoveBtn onClick={this.removeArticle(article._id)} />
                         </Article>
                     ))}
                 </Container>
