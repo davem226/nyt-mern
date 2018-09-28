@@ -1,7 +1,7 @@
 import React from "react";
 import "./Heading.css";
 
-const Heading = () => (
+const Heading = (props) => (
     <div className="page-header">
         <h1>
             NYT Article Scrubber
@@ -9,6 +9,7 @@ const Heading = () => (
                 Search for and save NYT articles!
             </small>
         </h1>
+        {props.children}
     </div>
 );
 export default Heading;

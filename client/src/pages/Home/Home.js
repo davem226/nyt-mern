@@ -19,11 +19,6 @@ class Home extends Component {
     };
 
     saveArticle = (article) => {
-        // Allow for saved articles to be determined in state
-        const articles = this.state.articles;
-        this.setState({
-            articles: articles.map(x => x === article ? (x.isSaved = true) : x)
-        });
         const data = {
             title: article.headline.main,
             link: article.web_url,
@@ -101,11 +96,7 @@ class Home extends Component {
                             title={article.headline.main}
                             preview={article.snippet}
                         >
-                            {article.isSaved ? (
-                                <div>✔</div>
-                            ) : (
-                                    <SaveBtn click={this.saveArticle(article)} />
-                                )}
+                            <SaveBtn click={this.saveArticle(article)} />
                         </Article>
                     ))}
                 </Container>

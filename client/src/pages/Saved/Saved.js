@@ -46,7 +46,7 @@ class Saved extends Component {
                         (
                             <h2>Saved Articles</h2>
                         )}
-                    {this.state.article.map(article => (
+                    {this.state.articles.map(article => (
                         <Article
                             link={article.link}
                             title={article.title}
