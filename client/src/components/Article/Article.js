@@ -2,7 +2,7 @@ import React from "react";
 import "./Article.css";
 
 const Article = props => (
-    <a href={`${props.link}`} className="card" style="width: 60%;">
+    <a href={`${props.link}`} className="card">
         <div className="card-body">
             <h5 className="card-title">
                 {props.title}

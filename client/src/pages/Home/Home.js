@@ -20,18 +20,17 @@ class Home extends Component {
 
     saveArticle = (article) => {
         // Allow for saved articles to be determined in state
-        const articles = this.state.articles
-            .map(i => i.isSaved === true)
-            .filter(i => i === article);
+        const articles = this.state.articles;
+        this.setState({
+            articles: articles.map(x => x === article ? (x.isSaved = true) : x)
+        });
         const data = {
             title: article.headline.main,
             link: article.web_url,
             synopsis: article.snippet
         };
         API.save(data)
-            .then(res => this.setState({
-                articles: articles
-            }))
+            .then(res => console.log("Article saved"))
             .catch(err => console.log(err));
     };
 
@@ -44,16 +43,19 @@ class Home extends Component {
 
     getArticles = event => {
         event.preventDefault();
+        var articles = [];
         if (this.state.topic && this.state.startYear) {
             API.query({
                 topic: this.state.topic,
                 startYear: this.state.startYear,
                 endYear: this.state.endYear
             })
-            .then(results => this.setState({
-                articles: results.data.response.docs
-            }))
-            .catch(err => console.log(err));
+                .then(results => {
+                    articles = results.data.response.docs;
+                    console.log(articles);
+                    this.setState({ articles: articles });
+                })
+                .catch(err => console.log(err));
         }
     };
 
@@ -92,9 +94,7 @@ class Home extends Component {
                 </form>
 
                 <Container>
-                    {this.state.articles.length ? (
-                        <h2>Results</h2>
-                    ) : ("")}
+                    <h2>Results</h2>
                     {this.state.articles.map(article => (
                         <Article
                             link={article.web_url}
@@ -104,8 +104,8 @@ class Home extends Component {
                             {article.isSaved ? (
                                 <div>✔</div>
                             ) : (
-                                <SaveBtn onClick={this.saveArticle(article)} />
-                            )}
+                                    <SaveBtn click={this.saveArticle(article)} />
+                                )}
                         </Article>
                     ))}
                 </Container>
